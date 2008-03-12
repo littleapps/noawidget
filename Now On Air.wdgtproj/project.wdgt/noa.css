@@ -1,0 +1,209 @@
+/*<group=interface>*/
+
+#back {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 320px;
+    height: 90px;
+    display: none;
+    background-repeat: no-repeat;
+    background-image: url(images/behind.png);
+}
+
+#front {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 320px;
+}
+
+/*<group=init>*/
+#ini {
+    position: absolute;
+    top: 19px;
+    left: 19px;
+}
+
+label[for="selectInterval"] {
+    font-size: 8pt;
+    margin-top: 0px;
+    margin-right: 5px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    position: absolute;
+    top: 8px;
+    left: 110px;
+    width: 100px;
+    height: 20px;
+}
+
+select#selectInterval {
+    position: absolute;
+    top: 3px;
+    left: 140px;
+}
+/*</group>*/
+/*</group>*/
+
+/*<group=tags>*/
+* {
+    font-family: Arial, 'ヒラギノ 角ゴ';
+    color: rgb(255, 255, 255);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(204, 204, 204);
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+/*</group>*/
+
+/*<group=front>*/
+#status {
+    color: rgb(102, 102, 102);
+    font-size: 7pt;
+    position: absolute;
+    top: 45px;
+    left: 4px;
+    width: 290px;
+    text-align: right;
+}
+
+#song {
+    font-weight: bold;
+    font-size: 9pt;
+    margin-top: 2px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    padding-top: 17px;
+    padding-right: 50px;
+    padding-bottom: 5px;
+    padding-left: 50px;
+    width: 200px;
+}
+
+#artist {
+    font-size: 7pt;
+    font-weight: 100;
+    width: 200px;
+    padding-top: 0px;
+    padding-right: 50px;
+    padding-bottom: 0px;
+    padding-left: 50px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+}
+
+#noa {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    text-align: center;
+    overflow: hidden;
+	/*white-space: nowrap;*/
+    background-repeat: no-repeat;
+    background-image: url(images/front1.png);
+}
+
+#bottom {
+    clear: both;
+    background-repeat: no-repeat;
+    background-image: url(images/front2.png);
+    height: 27px;
+    position: relative;
+}
+
+/*</group>*/
+
+/*<group=flip>*/
+.flip {
+    position: absolute;
+    right: 22px;
+    top: 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.flip2 {
+    position: absolute;
+    right: 38px;
+    top: 0px;
+    width: 13px;
+    height: 13px;
+}
+
+#flip {
+    opacity: 0;
+    background-image: url(file:///System/Library/WidgetResources/ibutton/white_i.png);
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    -khtml-background-clip: initial;
+    -khtml-background-origin: initial;
+    background-color: initial;
+    z-index: 8000;
+    background-position: 0% 0%;
+}
+
+#fliprollie {
+    display: none;
+    opacity: 0.25;
+    background-image: url(file:///System/Library/WidgetResources/ibutton/white_rollie.png);
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    -khtml-background-clip: initial;
+    -khtml-background-origin: initial;
+    background-color: initial;
+    z-index: 7999;
+    background-position: 0% 0%;
+}
+
+#flip2 {
+    opacity: 0;
+    background-image: url(images/rotate.png);
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    -khtml-background-clip: initial;
+    -khtml-background-origin: initial;
+    background-color: initial;
+    z-index: 8001;
+    background-position: 0% 0%;
+}
+
+#fliprollie2 {
+    display: none;
+    opacity: 0.25;
+    background-image: url(file:///System/Library/WidgetResources/ibutton/white_rollie.png);
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    -khtml-background-clip: initial;
+    -khtml-background-origin: initial;
+    background-color: initial;
+    z-index: 7998;
+    background-position: 0% 0%;
+}
+
+/*</group>*/
+#doneButton {
+    position: absolute;
+    z-index: 8101;
+    width: 45px;
+    top: 5px;
+    left: 235px;
+	cursor: pointer;
+}

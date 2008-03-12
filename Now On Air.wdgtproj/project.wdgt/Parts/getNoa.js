@@ -3,9 +3,10 @@
 :::
 :::
 :::
-:::	 Now On Air for Dashboard 1.0 :::
+:::	 Now On Air for Dashboard 1.1.1 :::
 :::
 :::	 code + design ::: atsushi nagase ::: http://ngsdev.org/
+:::	 Copyright 2005-2008 atsushi nagase. All rights  reserved.
 :::
 :::
 :::
@@ -22,17 +23,20 @@ var interval;
 var flip
 var flip2
 var interval_array = [0,0.1,0.5,1,1.5,2,5,10];
-var reloadButton
+var reloadButton;
+var _backmode = false;
 function setup() {
+    if (setup.called) return;
+    setup.called = true;
+    CreateGlassButton('doneButton', { text: '完了' });
 	flip2 = new Flip("flip2","fliprollie2");
 	flip = new Flip("flip","fliprollie");
 	if (window.widget) {
 		widget.onhide = onhide;
 		widget.onshow = onshow;
-		interval = widget.preferenceForKey("interval");
+		interval = parseInt(widget.preferenceForKey("interval"));
 	}
 	if(isNaN(interval)) changeInterval(1);
-	createGenericButton(document.getElementById('doneButton'), "DONE", hideBack);
 	getNoa();
 }
 
@@ -44,7 +48,6 @@ function onshow() {
 function activeInterval() {
 	removeInterval()
 	if(interval) interval_engine = setInterval("getNoa();", interval);
-	//alert(interval_engine)
 }
 
 function showFlips() {
@@ -68,9 +71,7 @@ function onhide() {
 }
 
 function getNoa() {
-	//alert("loading")
 	noaDiv = document.getElementById("noa");
-	//showStatus("読み込み中");
 	flip2.setOpacity(100)
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -80,8 +81,6 @@ function getNoa() {
 			if(xhttp.responseText) {
 				showStatus();
 				changeNoa(xhttp.responseXML);
-			}else{
-				//showStatus("読み込み失敗");
 			}
 		}
 	}
@@ -91,17 +90,15 @@ function getNoa() {
 	xhttp.open('GET',fname,true)
 	xhttp.send(null);
 }
-var song
-var artist
+var song, artist;
 function changeNoa(param) {
 	var fc = param.firstChild.childNodes
 	var len = fc.length
 	for(var i=0;i<len;i++) {
 		if(fc[i].nodeName=="data") {
 			var info = fc[i].getAttribute("information");
-			var lar = utf8to16(fc[i].getAttribute("cd_url")).split("?noa=");
+			var lar = fc[i].getAttribute("cd_url").split("?noa=");
 			cdloc = lar[0];
-			//query = utf8to16(lar[1]).replace(/%20/g,"+");
 			var info_ar = info.split("」")
 			song = info_ar[0].split("「").join('');
 			artist = info_ar[1]
@@ -118,7 +115,7 @@ function showStatus(param) {
 	statusDiv.innerHTML = param;
 }
 function getCD() {
-	if(!flip.isOver()&&!flip2.isOver()) {
+	if(!flip.isOver()&&!flip2.isOver()&&!_backmode) {
 		if (window.widget) {
 			widget.openURL(cdloc+"?noa="+query);
 		} else {
@@ -136,14 +133,14 @@ function changeInterval(t) {
 		t = 0;
 		removeInterval()
 	}
-	interval = t
-	//alert(t)
+	interval = t;
 	if(window.widget) widget.setPreferenceForKey(t,"interval");
 }
 
 function attachSelect() {
 	var sel = document.getElementById("selectInterval");
-	var len = interval_array.length
+	var len = interval_array.length;
+	if(window.widget) interval = parseInt(widget.preferenceForKey("interval"));
 	for(var i=0; i<len; i++) {
 		var opt = document.createElement("option");
 		opt.value = i.toString();
@@ -176,35 +173,35 @@ http://developer.apple.com/ja/documentation/AppleApplications/Conceptual/Dashboa
 ------------------------------------------------------------------------*/
 function showBack()
 {
+	_backmode = true;
 	attachSelect();
 	var front = document.getElementById("front");
 	var back = document.getElementById("back");
-		
 	if (window.widget) widget.prepareForTransition("ToBack");
-				
 	front.style.display="none";
 	back.style.display="block";
-		
 	if (window.widget) setTimeout ('widget.performTransition();', 0);  
 }
 
 
 function hideBack()
 {
+	_backmode = false;
+	changeInterval(document.getElementById("selectInterval").value);
 	flip.out(event);
 	flip2.out(event);
 	removeSelect();
 	activeInterval()
 	var front = document.getElementById("front");
 	var back = document.getElementById("back");
-
 	if (window.widget) widget.prepareForTransition("ToFront");
-
 	back.style.display="none";
 	front.style.display="block";
-
 	if (window.widget) setTimeout ('widget.performTransition();', 0);
 }
 
 
 /*------------------------------------------------------------------------*/
+
+window.addEventListener('load', setup, false);
+window.addEventListener('mousedown', getCD, false);
