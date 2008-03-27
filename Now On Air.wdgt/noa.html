@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><!--
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::
+:::
+:::
+:::     Now On Air for Dashboard 1.1.1 :::
+:::
+:::     code + design ::: atsushi nagase ::: http://ngsdev.org/
+:::     Copyright 2005-2008 atsushi nagase. All rights  reserved.
+:::
+:::
+:::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+--><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta name="generator" content="Dashcode">
+	<link rev="made" title="atsushi nagase" href="http://ngsdev.org/">
+	<link rel="stylesheet" type="text/css" media="all" href="noa.css">
+	<title>Now On Air</title>
+	<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleButton.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Parts/GlassButton.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Parts/utilities.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Parts/Flip.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Parts/getNoa.js" charset="utf-8"></script>
+</head>
+<body>
+<!--
+
+	表面
+
+-->
+<div id="front" onmousemove="showFlips();" onmouseout="hideFlips();">
+	<div id="noa"></div>
+	<div id="status"></div>
+	<div id="bottom">
+		<div class="flip" id="flip" onclick="showBack(event);" onmouseover="flip.over(event);" onmouseout="flip.out(event);"></div>
+		<div class="flip" id="fliprollie"></div>
+		<div class="flip2" id="flip2" onclick="getNoa(event);" onmouseover="flip2.over(event);" onmouseout="flip2.out(event);"></div>
+		<div class="flip2" id="fliprollie2"></div>
+	</div>
+</div>
+
+<!--
+
+	裏面
+
+-->
+<div id="back">
+	<div id="ini">
+		<label for="selectInterval">更新 : </label>
+		<select id="selectInterval"></select>
+		<div apple-part="com.apple.Dashcode.part.glassbutton" class="apple-no-children" id="doneButton" apple-group="glassbutton" onclick="hideBack();"></div>
+	</div>
+
+
+
+</div>
+
+</body>
+</html>
