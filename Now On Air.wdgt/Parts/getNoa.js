@@ -14,7 +14,7 @@
 
 
 var xmlloc = "http://www.j-wave.co.jp/top/xml/now_on_air_song.xml";
-var cdloc
+var cdloc = "https://www.amazon.co.jp/s/?tag=atsushnagased-22&search-alias=popular&__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&field-keywords=";
 var query
 var statusDiv;
 var noaDiv;
@@ -98,13 +98,13 @@ function changeNoa(param) {
 		if(fc[i].nodeName=="data") {
 			var info = fc[i].getAttribute("information");
 			var lar = fc[i].getAttribute("cd_url").split("?noa=");
-			cdloc = lar[0];
+			//cdloc = lar[0];
 			var info_ar = info.split("」")
 			song = info_ar[0].split("「").join('');
 			artist = info_ar[1]
 			noaDiv.innerHTML = "<div id=\"song\">"+song+"</div>";
 			noaDiv.innerHTML += "<div id=\"artist\">"+artist+ "</div>";
-			query = "「 "+song+" 」 "+artist;
+			query = song+" "+artist;
 			break;
 		}
 	}
@@ -115,12 +115,10 @@ function showStatus(param) {
 	statusDiv.innerHTML = param;
 }
 function getCD() {
+    var url = cdloc+"?field-keywords="+encodeURIComponent(query);
 	if(!flip.isOver()&&!flip2.isOver()&&!_backmode) {
-		if (window.widget) {
-			widget.openURL(cdloc+"?noa="+query);
-		} else {
-			window.location.href = cdloc+"?noa="+query;
-		}
+		if (window.widget) widget.openURL(url);
+		else window.location.href = url;
 	}
 }
 
