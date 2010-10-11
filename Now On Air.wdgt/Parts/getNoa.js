@@ -13,6 +13,19 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-200187-20']);
+_gaq.push(['_setDomainName', 'none']);
+_gaq.push(['_setAllowLinker', true]);
+_gaq.push(['_trackPageview', '/load']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+
 var xmlloc = "http://www.j-wave.co.jp/top/xml/now_on_air_song.xml";
 var cdloc = "https://www.amazon.co.jp/s/?tag=atsushnagased-22&search-alias=popular&__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&field-keywords=";
 var query
@@ -104,10 +117,11 @@ function changeNoa(param) {
 			artist = info_ar[1]
 			noaDiv.innerHTML = "<div id=\"song\">"+song+"</div>";
 			noaDiv.innerHTML += "<div id=\"artist\">"+artist+ "</div>";
-			query = song+" "+artist;
+			query = song+" "+artist.replace(/(:?\s*)(\d{1,2}\:\d{1,2})(:?\s*)/,"");
 			break;
 		}
 	}
+    _gaq.push(['_trackPageview', '/'+artist+'/'+song]);
 }
 function showStatus(param) {
 	if(!param) param = "";
@@ -115,7 +129,9 @@ function showStatus(param) {
 	statusDiv.innerHTML = param;
 }
 function getCD() {
-    var url = cdloc+"?field-keywords="+encodeURIComponent(query);
+    var url = cdloc+encodeURIComponent(query);
+    _gaq.push(['_trackPageview', '/getCD/'+query]);
+    _gaq.push(['_trackEvent', 'getCD', query]);
 	if(!flip.isOver()&&!flip2.isOver()&&!_backmode) {
 		if (window.widget) widget.openURL(url);
 		else window.location.href = url;
@@ -179,6 +195,7 @@ function showBack()
 	front.style.display="none";
 	back.style.display="block";
 	if (window.widget) setTimeout ('widget.performTransition();', 0);  
+    _gaq.push(['_trackPageview', '/back']);
 }
 
 
@@ -196,6 +213,7 @@ function hideBack()
 	back.style.display="none";
 	front.style.display="block";
 	if (window.widget) setTimeout ('widget.performTransition();', 0);
+    _gaq.push(['_trackPageview', '/front']);
 }
 
 
