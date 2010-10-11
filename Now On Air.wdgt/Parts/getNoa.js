@@ -3,7 +3,7 @@
 :::
 :::
 :::
-:::	 Now On Air for Dashboard 1.1.1 :::
+:::	 Now On Air for Dashboard 1.2 :::
 :::
 :::	 code + design ::: atsushi nagase ::: http://ngsdev.org/
 :::	 Copyright 2005-2008 atsushi nagase. All rights  reserved.
