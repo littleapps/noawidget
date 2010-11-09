@@ -3,10 +3,10 @@
 :::
 :::
 :::
-:::     Now On Air for Dashboard 1.2 :::
+:::     Now On Air for Dashboard 1.2.2 :::
 :::
 :::     code + design ::: atsushi nagase ::: http://ngsdev.org/
-:::     Copyright 2005-2008 atsushi nagase. All rights  reserved.
+:::     Copyright 2005-2010 atsushi nagase. All rights  reserved.
 :::
 :::
 :::

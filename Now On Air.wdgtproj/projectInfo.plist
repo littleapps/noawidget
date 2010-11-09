@@ -2,11 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AvailableProducts</key>
+	<dict>
+		<key>Widget</key>
+		<dict>
+			<key>CYShineVersion</key>
+			<integer>2</integer>
+			<key>MainCSS</key>
+			<string>noa.css</string>
+			<key>ProductDir</key>
+			<string>widget.wdgt</string>
+			<key>UseCustomAppIcon</key>
+			<true/>
+			<key>UseCustomDefaultImage</key>
+			<true/>
+		</dict>
+	</dict>
 	<key>CYProjectFormatVersion</key>
-	<integer>1</integer>
-	<key>UseCustomDefaultImage</key>
-	<true/>
-	<key>UseCustomWidgetIcon</key>
+	<integer>40</integer>
+	<key>IsInCodeGeneratorMode</key>
 	<true/>
 </dict>
 </plist>
