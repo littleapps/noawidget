@@ -3,10 +3,10 @@
 :::
 :::
 :::
-:::     Now On Air for Dashboard 1.2.1 :::
+:::     Now On Air for Dashboard 1.2 :::
 :::
 :::     code + design ::: atsushi nagase ::: http://ngsdev.org/
-:::     Copyright 2005-2010 atsushi nagase. All rights  reserved.
+:::     Copyright 2005-2008 atsushi nagase. All rights  reserved.
 :::
 :::
 :::
@@ -27,10 +27,8 @@ _gaq.push(['_trackPageview', '/load']);
 
 
 var xmlloc = "http://www.j-wave.co.jp/top/xml/now_on_air_song.xml";
-var cdloc = "http://ax.search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?entity=album&restrict=true&submit=seeAllLockups&term=";
-var affConvert = "http://feed.linksynergy.com/createcustomlink.shtml?token=fafab0b82dd76fc58c5bf929a42147961f871c911297c98217949be9b68b123f&mid=13894&murl=";
-var cdURL;
-var query;
+var cdloc = "https://www.amazon.co.jp/s/?tag=atsushnagased-22&search-alias=digital-music&__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&field-keywords=";
+var query
 var statusDiv;
 var noaDiv;
 var interval_engine;
@@ -85,30 +83,25 @@ function onhide() {
     removeInterval()
 }
 
-function doRequest(url,callback) {
+function getNoa() {
+    noaDiv = document.getElementById("noa");
+    flip2.setOpacity(100)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if(xhttp.readyState == 4){
             flip2.button.style.backgroundImage = "url(images/rotate.gif)";
             if(! flip2.isOver()) flip2.opacityTo(0)
             if(xhttp.responseText) {
-                callback.apply(xhttp,[xhttp.responseText]);
+                showStatus();
+                changeNoa(xhttp.responseXML);
             }
         }
-    }    
-    xhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
-    xhttp.open('GET',url,true)
-    xhttp.send(null);
-}
-
-function getNoa() {
-    noaDiv = document.getElementById("noa");
-    flip2.setOpacity(100)
+    }
     var rnd = Math.ceil(Math.random()*100000);
-    doRequest(xmlloc+"?rnd="+rnd,function(){
-        showStatus();
-        changeNoa(this.responseXML);
-    });
+    var fname = xmlloc+"?rnd="+rnd;
+    xhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
+    xhttp.open('GET',fname,true)
+    xhttp.send(null);
 }
 var song, artist;
 function changeNoa(param) {
@@ -121,17 +114,10 @@ function changeNoa(param) {
             //cdloc = lar[0];
             var info_ar = info.split("」")
             song = info_ar[0].split("「").join('');
-            song = song.replace(/[（\(]live[）|\)]/ig,"")
             artist = info_ar[1]
             noaDiv.innerHTML = "<div id=\"song\">"+song+"</div>";
             noaDiv.innerHTML += "<div id=\"artist\">"+artist+ "</div>";
             query = song+" "+artist.replace(/(:?\s*)(\d{1,2}\:\d{1,2})(:?\s*)/,"");
-            doRequest(affConvert+encodeURI(cdloc+encodeURIComponent(query)),function(res) {
-                res = (res||"").replace(/[\s\n\r]/g);
-                if(!res) return;
-                res = res.replace(/^([^\?]+)\?([^\?]+)\?(.*)$/,"$1?$2&$3");
-                cdURL = res;
-            });
             break;
         }
     }
@@ -143,11 +129,12 @@ function showStatus(param) {
     statusDiv.innerHTML = param;
 }
 function getCD() {
+    var url = cdloc+encodeURIComponent(query);
     _gaq.push(['_trackPageview', '/getCD/'+query]);
     _gaq.push(['_trackEvent', 'getCD', query]);
     if(!flip.isOver()&&!flip2.isOver()&&!_backmode) {
-        if (window.widget) widget.openURL(cdURL);
-        else window.location.href = cdURL;
+        if (window.widget) widget.openURL(url);
+        else window.location.href = url;
     }
 }
 
